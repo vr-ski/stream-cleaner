@@ -55,16 +55,17 @@ usage() {
 Usage: $0 [OPTIONS]
 
 Options:
-  -i, --input-file <file>     Input media file to process (cannot be used with --root-dir)
-  -r, --root-dir <directory>  Root directory containing media files (cannot be used with --input-file)
-  -x, --input-ext <extension> Input ,edia file(s) extension to process (cannot be used with --input-file)
-  -a, --audio-langs <langs>   Comma-separated list of audio languages to keep (e.g., "jpn,eng")
-  -t, --audio-tracks <tracks> Comma-separated list of audio tracks to keep (e.g., "1,4")
-  -s, --sub-langs <langs>     Comma-separated list of subtitle languages to keep (e.g., "eng,deu")
-  -n, --no-video              Exclude video streams (include all video by default)
-  -d, --dry-run               Simulate the process without modifying files (shows detailed output)
-  -v, --verbose               Enable verbose output
-  -h, --help                  Show this help message
+  -i, --input-file <file>       Input media file to process (cannot be used with --root-dir)
+  -r, --root-dir <directory>    Root directory containing media files (cannot be used with --input-file)
+  -x, --input-ext <extension>   Input ,edia file(s) extension to process (cannot be used with --input-file)
+  -o, --output-ext <extension>  Input ,edia file(s) extension to process (cannot be used with --input-file)
+  -a, --audio-langs <langs>     Comma-separated list of audio languages to keep (e.g., "jpn,eng")
+  -t, --audio-tracks <tracks>   Comma-separated list of audio tracks to keep (e.g., "1,4")
+  -s, --sub-langs <langs>       Comma-separated list of subtitle languages to keep (e.g., "eng,deu")
+  -n, --no-video                Exclude video streams (include all video by default)
+  -d, --dry-run                 Simulate the process without modifying files (shows detailed output)
+  -v, --verbose                 Enable verbose output
+  -h, --help                    Show this help message
 EOF
   exit 0
 }
