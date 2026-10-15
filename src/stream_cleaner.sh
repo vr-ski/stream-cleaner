@@ -195,7 +195,7 @@ fi
 
 # Store file info for later execution
 if [[ "${ext}" == "${o_ext}" ]]; then
-  codec_mode="c copy"
+  codec_mode="-c copy"
 fi
 
 # Check for required tools
@@ -350,7 +350,7 @@ process_file() {
     return 0
   fi
 
-  commands+=("ffmpeg -i \"${input_file}\" ${map_args[*]} "${codec_mode}" -y \"${temp_file}\"")
+  commands+=("ffmpeg -i \"${input_file}\" ${map_args[*]} ${codec_mode} -y \"${temp_file}\"")
   streams_info+=("File: ${input_file}
 Streams to KEEP:
 $(for stream in "${kept_streams[@]}"; do echo "  ✅ ${stream}"; done)
@@ -369,13 +369,13 @@ gather_file_info() {
 execute_commands() {
   for i in "${!commands[@]}"; do
     input_file="${files[$i]}"
-    temp_file="${input_file%.${ext}}_clean.${ext}"
+    temp_file="${input_file%.${ext}}_clean.${o_ext}"
     command="${commands[$i]}"
 
     info "Executing: ${command}"
     if eval "${command}" 2>/dev/null; then
       rm -vrf ${input_file}
-      mv -v "${temp_file}" "${input_file%${ext}}.${o_ext}"
+      mv -v "${temp_file}" "${input_file%.${ext}}.${o_ext}"
       log "Success: File ${input_file} updated."
     else
       error "Failed to process file '${input_file}'."
