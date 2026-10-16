@@ -44,8 +44,8 @@ A Bash script to clean media files keeping only specified video, audio, and subt
 |----------------------|-----------------------------------------------------------------------------|
 | `-i, --input-file`   | Input media file to process (cannot be used with `--root-dir`).              |
 | `-r, --root-dir`     | Root directory containing media files (cannot be used with `--input-file`). |
-| `-x, --input-ext`    | Extension of the input files to be searched in the root directory. |
-| `-o, --output-ext`   | Extension of the output files to be saved. Can be used with `--input-file`. |
+| `-x, --input-ext`    | Extension of the input files to be searched in the root directory. Works with `--root-dir`. |
+| `-o, --output-ext`   | Extension of the output files to be saved. Works with both `--root-dir` and `--input-file`. |
 | `-a, --audio-langs`  | Comma-separated list of audio languages to keep (e.g., `"jpn,eng"`).       |
 | `-t, --audio-tracks` | Comma-separated list of audio tracks to keep (e.g., `"1,2"`).       |
 | `-s, --sub-langs`    | Comma-separated list of subtitle languages to keep (e.g., `"eng,deu"`).   |
