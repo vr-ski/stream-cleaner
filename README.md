@@ -7,7 +7,7 @@ A Bash script to clean media files keeping only specified video, audio, and subt
 ## Features
 - **Filter by Language**: Keep only audio/subtitle streams in specified languages.
 - **No Re-encoding**: When a keeping the same extension - uses `ffmpeg` in stream copy mode (`-c copy`) for fast processing.
-- **Force Re-encoding**: When a different extension (o_ext) is enforced - uses `ffmpeg` in implicit h264 reencode for better compatibility.
+- **Force Re-encoding**: When a different extension (o_ext) is enforced - uses `ffmpeg` with an implicit h264 reencode for better compatibility.
 - **Dry Run Mode**: Preview changes without modifying files.
 - **Verbose Output**: Enable detailed logging for debugging.
 - **Batch Processing**: Process a single file or all media files in a directory.
@@ -44,8 +44,8 @@ A Bash script to clean media files keeping only specified video, audio, and subt
 |----------------------|-----------------------------------------------------------------------------|
 | `-i, --input-file`   | Input media file to process (cannot be used with `--root-dir`).              |
 | `-r, --root-dir`     | Root directory containing media files (cannot be used with `--input-file`). |
-| `-x, --root-dir`     | Root directory containing media files (cannot be used with `--input-file`). |
-| `-o, --root-dir`     | Root directory containing media files (cannot be used with `--input-file`). |
+| `-x, --input-ext`    | Extension of the input files to be searched in the root directory. |
+| `-o, --output-ext`   | Extension of the output files to be saved. Can be used with `--input-file`. |
 | `-a, --audio-langs`  | Comma-separated list of audio languages to keep (e.g., `"jpn,eng"`).       |
 | `-t, --audio-tracks` | Comma-separated list of audio tracks to keep (e.g., `"1,2"`).       |
 | `-s, --sub-langs`    | Comma-separated list of subtitle languages to keep (e.g., `"eng,deu"`).   |
