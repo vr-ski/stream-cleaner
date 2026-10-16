@@ -375,7 +375,7 @@ execute_commands() {
 
     info "Executing: ${command}"
     if eval "${command}" 2>/dev/null; then
-      rm -vrf ${input_file}
+      rm -vrf "${input_file}"
       mv -v "${temp_file}" "${input_file%.${ext}}.${o_ext}"
       log "Success: File ${input_file} updated."
     else
