@@ -29,6 +29,7 @@ declare -a audio_langs=()
 declare -a audio_tracks=()
 declare -a sub_langs=()
 declare -a files=()
+declare -a files_to_process=()
 declare -a commands=()
 declare -a streams_info=()
 declare -a map_args=()
@@ -352,6 +353,7 @@ process_file() {
   fi
 
   commands+=("ffmpeg -i \"${input_file}\" ${map_args[*]} ${codec_mode} -y \"${temp_file}\"")
+  files_to_process+=("${input_file}")
   streams_info+=("File: ${input_file}
 Streams to KEEP:
 $(for stream in "${kept_streams[@]}"; do echo "  ✅ ${stream}"; done)
@@ -369,7 +371,7 @@ gather_file_info() {
 # Execute commands for all files
 execute_commands() {
   for i in "${!commands[@]}"; do
-    input_file="${files[$i]}"
+    input_file="${files_to_process[$i]}"
     temp_file="${input_file%.${ext}}_clean.${o_ext}"
     command="${commands[$i]}"
 
