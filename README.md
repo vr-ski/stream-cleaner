@@ -6,10 +6,11 @@ A Bash script to clean media files keeping only specified video, audio, and subt
 
 ## Features
 - **Filter by Language**: Keep only audio/subtitle streams in specified languages.
-- **No Re-encoding**: Uses `ffmpeg` in stream copy mode (`-c copy`) for fast processing.
+- **No Re-encoding**: When a keeping the same extension - uses `ffmpeg` in stream copy mode (`-c copy`) for fast processing.
+- **Force Re-encoding**: When a different extension (o_ext) is enforced - uses `ffmpeg` with an implicit h264 reencode for better compatibility.
 - **Dry Run Mode**: Preview changes without modifying files.
 - **Verbose Output**: Enable detailed logging for debugging.
-- **Batch Processing**: Process a single file or all MKV files in a directory.
+- **Batch Processing**: Process a single file or all media files in a directory.
 
 ---
 
@@ -41,9 +42,12 @@ A Bash script to clean media files keeping only specified video, audio, and subt
 ### Options
 | Option               | Description                                                                 |
 |----------------------|-----------------------------------------------------------------------------|
-| `-i, --input-file`   | Input MKV file to process (cannot be used with `--root-dir`).              |
-| `-r, --root-dir`     | Root directory containing MKV files (cannot be used with `--input-file`). |
+| `-i, --input-file`   | Input media file to process (cannot be used with `--root-dir`).              |
+| `-r, --root-dir`     | Root directory containing media files (cannot be used with `--input-file`). |
+| `-x, --input-ext`    | Extension of files to be gathered for processing. Works with `--root-dir`. |
+| `-o, --output-ext`   | Extension of files to be saved. Works with both `--root-dir` and `--input-file`. |
 | `-a, --audio-langs`  | Comma-separated list of audio languages to keep (e.g., `"jpn,eng"`).       |
+| `-t, --audio-tracks` | Comma-separated list of audio tracks to keep (e.g., `"1,2"`).       |
 | `-s, --sub-langs`    | Comma-separated list of subtitle languages to keep (e.g., `"eng,deu"`).   |
 | `-n, --no-video`     | Exclude video streams (include all video by default).                    |
 | `-d, --dry-run`      | Simulate the process without modifying files (shows detailed output).    |
@@ -59,8 +63,8 @@ Keep only Japanese audio and English subtitles in `movie.mkv`:
 ./stream_cleaner.sh --input-file movie.mkv --audio-langs jpn --sub-langs eng
 ```
 
-### Process All MKV Files in a Directory
-Keep only Japanese audio and English/German subtitles in all MKV files in `/path/to/files`:
+### Process All media Files in a Directory
+Keep only Japanese audio and English/German subtitles in all media files in `/path/to/files`:
 ```bash
 ./stream_cleaner.sh --root-dir /path/to/files --audio-langs jpn --sub-langs eng,deu
 ```
@@ -74,7 +78,7 @@ Preview what would happen without modifying files:
 ### Exclude Video Streams
 Keep only Japanese audio and English subtitles, excluding video:
 ```bash
-./stream_cleaner.sh --input-file movie.mkv --audio-langs jpn --sub-langs eng --no-video
+./stream_cleaner.sh --input-file movie.mkv --audio-tracks 1 --sub-langs eng --no-video
 ```
 
 ---
