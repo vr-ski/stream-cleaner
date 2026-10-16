@@ -312,11 +312,6 @@ process_file() {
     return 1
   fi
 
-  # Include all video streams if requested
-  if [[ "${include_video}" == true ]]; then
-    map_args+="-map 0:v"
-  fi
-
   # Process audio streams
   if [[ -n "${audio_langs[@]}" ]]; then
     process_streams "audio" "${ffprobe_output}" audio_langs
@@ -333,23 +328,9 @@ process_file() {
     return 0
   fi
 
-  # Get the original streams (all indices)
-  original_streams=$(awk '
-    /streams\.stream\.[0-9]+/ {
-      if (match($0, /streams\.stream\.[0-9]+/)) {
-        stream_idx = substr($0, RSTART, RLENGTH)
-        split(stream_idx, a, ".")
-        print a[3]
-      }
-    }' <<< "${ffprobe_output}" | sort -h | uniq | tr '\n' ' ')
-
-  # Get the desired streams (indices from map_args)
-  desired_streams=$(printf "%s\n" "${map_args[@]}" | grep -oE '0:[0-9]+' | cut -d':' -f2 | sort -h | tr '\n' ' ')
-
-  # If the original and desired streams match, skip processing
-  if [[ "${original_streams}" == "${desired_streams}" ]]; then
-    log "File '${input_file}' already matches desired streams. Skipping."
-    return 0
+  # Include all video streams if requested
+  if [[ "${include_video}" == true ]]; then
+    map_args+=("-map 0:v")
   fi
 
   commands+=("ffmpeg -i \"${input_file}\" ${map_args[*]} ${codec_mode} -y \"${temp_file}\"")
